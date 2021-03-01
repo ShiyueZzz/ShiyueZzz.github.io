@@ -84,7 +84,7 @@ body {
   margin: 0.6rem 0;
 }
 
-.franklin-content {
+.franklin-content, h1.post_title {
   position: relative;
   padding-left: 12.5%;
   padding-right: 12.5%;
