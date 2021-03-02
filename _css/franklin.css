@@ -6,7 +6,7 @@
   --background-color: black;
   --block-background: #222;
   --small: 14px;
-  --normal: 19px;
+  --normal: 17px;
   --text-color: white;
 }
 
@@ -17,7 +17,7 @@
 html {
   font-family: Helvetica, Arial, sans-serif;
   font-size: var(--normal);
-  
+  line-height: 1.35em;
 }
 
 body {
@@ -84,25 +84,24 @@ body {
   margin: 0.6rem 0;
 }
 
-.franklin-content, h1.post_title {
-  position: relative;
-  padding-left: 12.5%;
-  padding-right: 12.5%;
-  line-height: 1.35em;
+/* On wide screens, fix content width to a max value. */
+@media (min-width: 768px) {
+  #panel {
+    width: 505px;
+    margin-left: 22rem;
+  }
 }
 
-/* On wide screens, fix content width to a max value. */
-@media (min-width: 940px) {
-  .franklin-content {
+@media (min-width: 960px) {
+  #panel {
     width: 705px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 22rem;
   }
 }
 
 /* On narrow device, reduce margins. */
-@media (max-width: 480px) {
-  .franklin-content {
+@media (max-width: 768px) {
+  #panel {
     padding-left: 6%;
     padding-right: 6%;
   }

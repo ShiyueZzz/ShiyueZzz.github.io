@@ -10,5 +10,15 @@
 </head>
 <body>
 {{insert sidebar.html}}
-<h1 class="post_title">{{fill title}}</h1>
+<main id="panel">
+  {{ispage /tag/*}}
+  <h1 class="page_title">Tag: {{fill fd_tag}}</h1>
+  {{else}}
+  <h1 class="page_title">{{isdef title}}{{fill title}}{{end}}</h1>
+  <p>
+    Creation date: {{formatted_date}}<br>
+    Tags: {{show_tags}}
+  </p>
+  {{end}}
+
 <!-- Content appended here -->
