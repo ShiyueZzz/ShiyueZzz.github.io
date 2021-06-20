@@ -84,11 +84,6 @@ body {
   margin: 0.6rem 0;
 }
 
-.franklin-content, h1.post_title {
-  position: relative;
-  padding-left: 8%;
-  padding-right: 12.5%;
-  line-height: 1.35em;
 /* On wide screens, fix content width to a max value. */
 @media (min-width: 768px) {
   #panel {

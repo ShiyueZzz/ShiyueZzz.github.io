@@ -25,6 +25,8 @@ function lx_figclick(lx, _)
   alt, rpath = strip.(split(brace_content, ','))
   path  = Franklin.parse_rpath(rpath; canonical=false, code=true)
   return html_img_click(path, alt)
+end
+
 function hfun_show_tags()
   tags = locvar("tags")
   html_tags = map(x->"<a href=\"../../tag/$x\">$x</a>", tags)
