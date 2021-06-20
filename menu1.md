@@ -1,84 +1,60 @@
 +++
-title = "Code blocks"
-hascode = true
-date = Date(2019, 3, 22)
-rss = "A short description of the page which would serve as **blurb** in a `RSS` feed; you can use basic markdown here but the whole description string must be a single line (not a multiline string). Like this one for instance. Keep in mind that styling is minimal in RSS so for instance don't expect maths or fancy styling to work; images should be ok though: ![](https://upload.wikimedia.org/wikipedia/en/3/32/Rick_and_Morty_opening_credits.jpeg)"
+title = "¡Qué bueno conocerte!"
+date = Date(2021, 6, 19)
 +++
-@def tags = ["syntax", "code"]
-
-# Working with code blocks
-
-\toc
-
-## Live evaluation of code blocks
-
-If you would like to show code as well as what the code outputs, you only need to specify where the script corresponding to the code block will be saved.
-
-Indeed, what happens is that the code block gets saved as a script which then gets executed.
-This also allows for that block to not be re-executed every time you change something _else_ on the page.
-
-Here's a simple example (change values in `a` to see the results being live updated):
-
-```julia:./exdot.jl
-using LinearAlgebra
-a = [1, 2, 3, 3, 4, 5, 2, 2]
-@show dot(a, a)
-println(dot(a, a))
-```
-
-You can now show what this would look like:
-
-\output{./exdot.jl}
-
-**Notes**:
-* you don't have to specify the `.jl` (see below),
-* you do need to explicitly use print statements or `@show` for things to show, so just leaving a variable at the end like you would in the REPL will show nothing,
-* only Julia code blocks are supported at the moment, there may be a support for scripting languages like `R` or `python` in the future,
-* the way you specify the path is important; see [the docs](https://tlienart.github.io/franklindocs/code/index.html#more_on_paths) for more info. If you don't care about how things are structured in your `/assets/` folder, just use `./scriptname.jl`. If you want things to be grouped, use `./group/scriptname.jl`. For more involved uses, see the docs.
-
-Lastly, it's important to realise that if you don't change the content of the code, then that code will only be executed _once_ even if you make multiple changes to the text around it.
-
-Here's another example,
-
-```julia:./code/ex2
-for i ∈ 1:5, j ∈ 1:5
-    print(" ", rpad("*"^i,5), lpad("*"^(6-i),5), j==5 ? "\n" : " "^4)
-end
-```
-
-which gives the (utterly useless):
-
-\output{./code/ex2}
-
-note the absence of `.jl`, it's inferred.
-
-You can also hide lines (that will be executed nonetheless):
-
-```julia:./code/ex3
-using Random
-Random.seed!(1) # hide
-@show randn(2)
-```
-
-\output{./code/ex3}
+@def tags = ["group theory"]
 
 
-## Including scripts
+##
 
-Another approach is to include the content of a script that has already been executed.
-This can be an alternative to the description above if you'd like to only run the code once because it's particularly slow or because it's not Julia code.
-For this you can use the `\input` command specifying which language it should be tagged as:
+Abstract algebra (the study of groups, rings, fields) and differential geometry are my favorite courses in undergraduate study. I enjoyed a lot studying the very elegant and imaginative two subjects of mathematics back then. Unfortunately, my master's study in computer vision has little to do with them (now there is more!): after 5 years of engineer path, many terms became vague.
+
+There could be countless reasons I just keep letting these knowledge go vanishing in my memory, until recently I came across very exciting research in machine learning that heavily utilities group (representation) theory and differential geometry. During reading it I had this estranged excitement: I am over the moon to see the familiar terms in pure mathematics appear in state of art ML research, but sadly I can't totally understand every detail of those papers. So I decided to write a series of posts, from the very basics of group theory / differential geometry, until a mature understanding of the recent research on convolution neural networks on Riemannian manifold, mainly to do myself a favour :smirk_cat:
+
+## Groups
+For mathematicians, [group](https://en.wikipedia.org/wiki/Group_(mathematics)) is a very basic concept which appears every where: integers under addition forms a group; all roots of a polynomial equation forms a group; vector space is a group with extra structure; every possible move on a Rubik's Cube forms the [Rubik's Cube group](https://en.wikipedia.org/wiki/Rubik%27s_Cube_group); a periodic wallpaper pattern gives rise to a wallpaper group...
+
+And for the rest of us, people either never heard of it, or know it by name but has weird imagination in mind about it (I once heard in a podcast where people confused it with categorical theory and comfortably referred this term for half an hour). So let's start from the basics. 
+
+Group is not so well-known as matrix, but it also plays a fundamental role in mathematics, especially when it has something to do with **symmetry**, which we will explore later. With the help of group theory (specifically, Galois theory), the ancient geometric problems such that the *impossibility* of [doubling the cube](https://en.wikipedia.org/wiki/Doubling_the_cube) and [Angle trisection](https://en.wikipedia.org/wiki/Angle_trisection) are proved. In algebra, another famous example of Galois theory's power is to prove the impossibility to get a general solution of [quintics](https://en.wikipedia.org/wiki/Quintic_function).
 
 
-\input{julia}{/_assets/scripts/script1.jl} <!--_-->
+To form a group, we need a set $G$ (e.g. the set of all integers) and a binary operation $\cdot$ on the set, which combines any two elements $a$, $b$ in the set, the result $a \cdot b$ still belongs to $G$. Additionally, to make $(G, \cdot)$ a group, three axioms must be fulfilled:
+* **Associativity**:  $\forall a, b, c \in G$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+* **Identity element**: $\exists e \in G$, such that $e \cdot a = a \cdot e = a$
+* **Inverse element**: for $\forall a \in G, \exists b \in G$, such that $b \cdot a = a \cdot b = e$, we denote $b = a^{-1}$
 
+It's not hard to prove that the identity/unit element, and inverse element of any member of a group is unique.
 
-these scripts can be run in such a way that their output is also saved to file, see `scripts/generate_results.jl` for instance, and you can then also input the results:
+Before we dive into more example of groups, it's good to know the concept of a *Albelian Group*, or *Commutative Group*, which means simply for any $a, b \in G$, we have $b \cdot a = a \cdot b$.
 
-\output{/_assets/scripts/script1.jl} <!--_-->
+## Examples :tiger: :book: :lemon: :cactus:
 
-which is convenient if you're presenting code.
+* $(\Z, +)$: integer group with addition operation: the associativity of addition of numbers is trivial in this case; $0$ is the identity element and the negative of each number plays the role of inverse element of integer addition group.
 
-**Note**: paths specification matters, see [the docs](https://tlienart.github.io/franklindocs/code/index.html#more_on_paths) for details.
+Till here, it seems group theory justs add some rigid terms to something we already know from primary school, but the more example / counter examples you learn, you will see the beauty of describe the numbers or operations we know as well defined algebra structure. 
 
-Using this approach with the `generate_results.jl` file also makes sure that all the code on your website works and that all results match the code which makes maintenance easier.
+To serve as a counter example, can you tell why $(\Z, \cdot)$, i.e. integers with multiplication as operation, is not a group?
+
+* $(\mathbb{Q}^{*}, \cdot)$: the set of all non-zero rational numbers with operation of multiplication forms a group, with $1$ as identity element and the reciprocal serves as inverse element.
+
+* **Rubik's cube group**: the set $G$ corresponds to all *legal* positions of a Rubik's cube, and the operation $\cdot$ is the composition of cube moves (a *cube move* is the rotation of a particular face in the clock-wise direction by 90 degrees, so there are in total 6 of them). The identity element is the solved Rubik’s Cube, which corresponds to the empty sequence of cube moves. Furthermore, we expect that any legal position has an inverse, since we know even a $3 \times 3$ cube has over 43 quintillion legal positions, any position [can be solved in 20](http://www.cube20.org/) or fewer moves. 
+
+Different from $(\Z, +)$ and $(\mathbb{Q}^{*}, \cdot)$, Rubik's cube group is non-albelian, because two different moves on a cube are not commutative. Rubik's cube group might not be most mathematically interesting, but it serves as a nice illustration of [permutation group](https://en.wikipedia.org/wiki/Permutation_group).
+
+\figclick{a cube move, ./cube_move.png}
+
+## Matrix groups
+
+With an minimalist impression of groups in mind, we can dive into a class of (engineer-wise) very useful groups which consist of matrices together with matrix multiplication as operation. 
+
+* **$GL(n, \mathbb{R})$, General Linear Group**: consists of all **invertible** n-by-n  matrices with real entries. The existence of matrix inversion and identity matrix fulfills the group axioms. 
+
+* $GL^{+}(n, \mathbb{R})$: a [subgroup](https://en.wikipedia.org/wiki/Subgroup) of $GL(n, \mathbb{R})$, contains matrices with positive determinant. $GL^{+}(n, \mathbb{R})$ represents all the **orientation preserving** linear transformations of $\mathbb{R}^{n}$ (keeps the left-handed and right-handed orientation).
+
+* **$SL(n, \mathbb{R})$, Special Linear Group**: is a subgroup of $GL(n, \mathbb{R})$, whose element has **determinant 1**. special linear group can be characterized as group of **volume and orientation preserving** linear transformations of $\mathbb{R}^{n}$.
+
+* **$O(n, \mathbb{R})$, Orthogonal Group**: is the group of orthogonal matrices, it is a subgroup $GL(n, \mathbb{R})$, represents the group of **distance preserving** transformations of a Euclidean space of dimension $n$.
+
+* **$SO(n, \mathbb{R})$, Special Orthogonal Group**: contains orthogonal matrices of determinant 1. It **preserves orientation, angles and distance**. It is also called rotation group, in the case of $n=3$, noted as [$SO(3)$](https://en.wikipedia.org/wiki/3D_rotation_group), it describes all rotations about the origin of 3D Euclidean space. For example, in computer vision, all camera rotations belong to $SO(3)$.
+
