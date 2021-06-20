@@ -1,3 +1,5 @@
+using Dates
+
 function hfun_bar(vname)
   val = Meta.parse(vname[1])
   return round(sqrt(val), digits=2)
@@ -23,4 +25,13 @@ function lx_figclick(lx, _)
   alt, rpath = strip.(split(brace_content, ','))
   path  = Franklin.parse_rpath(rpath; canonical=false, code=true)
   return html_img_click(path, alt)
+function hfun_show_tags()
+  tags = locvar("tags")
+  html_tags = map(x->"<a href=\"../../tag/$x\">$x</a>", tags)
+  return join(html_tags, ", ")
+end
+
+function hfun_formatted_date()
+  date = locvar("date")
+  return Dates.format(date, "dd.mm.Y")
 end

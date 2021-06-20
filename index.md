@@ -1,4 +1,6 @@
 @def title = "Tabula Rasa"
+@def date = Date(2021,03,01)
+@def tags = ["general"]
 
 # Hello World!
 
@@ -10,7 +12,7 @@ Writing is good for ya, everyone says.
 
 I have thought about not to waste my life by leaving nothing behind for a while, but since I just can't manage to like any social media, I've been procrastinating. 
 
-Until last week, certain _Julia_ lover was overwhelmed by my idea to finally start a blog, with his help and pressure now I am writing this _non-Code_ stuff on my VS-Code. 
+Until last week, certain _Julia_ lover was overwhelmed by my idea to finally start a blog, with his help and pressure now I am writing this _non-Code_ on my VS-Code. 
 
 ## Things I want to write about
 

@@ -53,12 +53,6 @@ html {
   line-height: 1.5;
 }
 
-@media (min-width: 38em) {
-  html {
-    font-size: 20px;
-  }
-}
-
 body {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -331,10 +325,3 @@ a.sidebar-nav-item:focus {
   padding-bottom: 4rem;
 }
 
-@media (min-width: 768px) {
-  .content {
-    max-width: 45rem;
-    margin-left: 20rem;
-    margin-right: 2rem;
-  }
-}
